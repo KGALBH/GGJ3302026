@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public float speed = 5f;
+    public bool isMoving = false;
 
     [SerializeField] private Rigidbody2D rb;
 
@@ -24,18 +25,9 @@ public class PlayerMovement : MonoBehaviour
         Vector2 moveDirection = new Vector2(moveX, moveY).normalized;
 
         rb.velocity = moveDirection * speed;   
+        isMoving = moveDirection.magnitude > 0;
 
 
-    }
 
-    /// <summary>
-    /// Gets the player's position relative to the map's transform, normalized to a unit vector.
-    /// </summary>
-    /// <returns></returns>
-    public Vector2 GetRelativePos()
-    {
-        float x = (transform.position.x - map.transform.position.x) / map.size.x + 0.5f;
-        float y = (transform.position.y - map.transform.position.y) / map.size.y + 0.5f;
-        return new Vector2(Mathf.Clamp01(x), Mathf.Clamp01(y));
     }
 }
