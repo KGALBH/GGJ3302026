@@ -20,7 +20,7 @@ public class ValController : MonoBehaviour
     public Image waterImage;
     public TMP_Text waterLevelText;
     public float maxWaterLevel = 100f;
-    public float waterChangeRate = -0.2f;
+    public float waterChangeRate = -2f;
     private float currentWaterLevel = 100f;
     private float displayWaterLevel = 100f;
 
@@ -31,12 +31,11 @@ public class ValController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateWater()
     {
-        if (playerMovement.isMoving && Time.time - lastUpdateTime >= updateInterval)
+        if (Time.time - lastUpdateTime >= updateInterval)
         {
-            WaterChange(waterChangeRate);
+            WaterChange();
             lastUpdateTime = Time.time;
         }
 
@@ -49,9 +48,9 @@ public class ValController : MonoBehaviour
         waterImage.fillAmount = displayWaterLevel / maxWaterLevel;
     }
 
-    void WaterChange(float delta)
+    public void WaterChange()
     {
-        currentWaterLevel = Mathf.Clamp(currentWaterLevel + delta, 0, maxWaterLevel);
+        currentWaterLevel = Mathf.Clamp(currentWaterLevel + waterChangeRate, 0, maxWaterLevel);
         
         waterLevelText.text = $"{currentWaterLevel:F1}/{maxWaterLevel}";
     }
